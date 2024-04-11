@@ -9,6 +9,9 @@
 , libpqxx
 , unixODBC
 , gst_all_1
+, xorg
+, libpulseaudio
+, mysql80
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +20,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb";
-    hash = "sha256-qTc2PIIfW+YuSAb8z3Vpf2bTdhumoZXOATsBUG2EYTY=";
+    hash = "sha256-rvntnE6dNRyw4KVY+oKG1pvn1tGfk0u6btWEyV3dBTU=";
   };
 
   unpackPhase = "dpkg-deb -x $src .";
@@ -33,6 +36,7 @@ stdenv.mkDerivation rec {
     libpqxx
     unixODBC
     stdenv.cc.cc
+    mysql80
   ] ++ (with gst_all_1; [
     gstreamer
     gst-libav
@@ -40,6 +44,12 @@ stdenv.mkDerivation rec {
     gst-plugins-good
     gst-plugins-bad
     gst-plugins-ugly
+  ])++(with xorg; [
+    xcbutilwm         # libxcb-icccm.so.4
+    xcbutilimage      # libxcb-image.so.0
+    xcbutilkeysyms    # libxcb-keysyms.so.1
+    xcbutilrenderutil # libxcb-render-util.so.0
+    libpulseaudio
   ]);
 
   runtimeDependencies = [
