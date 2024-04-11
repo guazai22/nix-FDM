@@ -16,7 +16,7 @@
 
 stdenv.mkDerivation rec {
   pname = "freedownloadmanager";
-  version = "6.19.0";
+  version = "6.21.0.5639";
 
   src = fetchurl {
     url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb";
